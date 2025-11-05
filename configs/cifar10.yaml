@@ -1,0 +1,43 @@
+seed: 42
+output_dir: runs/cifar10
+
+# данные
+dataset: CIFAR10
+image_size: 32
+channels: 3
+num_workers: 4
+
+# сетка блоков
+stride_s: 2        # (U,V)∈{0,1}
+uv_kernel: 1       # 1 или 3; 3 включает соседства по UV с циклич. паддингом
+
+# модель
+base_channels: 64
+channel_mults: [1, 2, 2, 2]   # по XY
+num_res_blocks: 2
+attn_resolutions: []          # при желании можно добавить лок. внимание по XY
+
+# диффузия
+beta_schedule: cosine
+num_timesteps: 1000
+
+# оптимизация
+batch_size: 64
+lr: 2.0e-4
+weight_decay: 0.0
+ema_decay: 0.999
+mixed_precision: true
+
+# регуляризации
+lambda_uv: 0.1
+lambda_norm: 0.0
+
+# логгинг
+use_wandb: false
+project: 4d-uv-quat
+run_name: cifar10-baseline
+
+# выборка
+sample_steps: 50        # DDIM-шаги для sample.py
+shift_averaging: true   # усреднение по (δU,δV)
+
